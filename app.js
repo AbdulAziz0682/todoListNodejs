@@ -25,6 +25,17 @@ var server = http.createServer(function(req, res){
             }
         }
     }
+    else if(req.url == '/remove'){
+        var body = '';
+        req.setEncoding('utf-8');
+        req.on('data', function(chunk){
+            body += chunk;
+        });
+        var tempObj = qs.parse(body);
+        console.log('Temp obj is:',tempObj);
+        items.splice(tempObj.itemNumber-1, 1);
+        show(res);
+    }
     else{
         res.setStatusCode = 500;
         res.setHeader('Content-Type', 'text/plain');
